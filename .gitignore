@@ -1,0 +1,7 @@
+.acm-files/
+**/*.pkrvars.hcl
+
+.terraform/
+*.tfvars
+*.lock.hcl
+*.tfstate*
