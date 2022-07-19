@@ -1,3 +1,27 @@
+variable "version" {
+  type =  string
+}
+
+variable "nginx_devportal_binary_path" {
+  type =  string
+}
+
+variable "nginx_devportal_ui_binary_path" {
+  type =  string
+}
+
+variable "nginx_repo_cert_path" {
+  type =  string
+}
+
+variable "nginx_repo_key_path" {
+  type =  string
+}
+
+locals {
+  ami_name = "nginx-devportal-${var.version}"
+}
+
 packer {
   required_plugins {
     amazon = {
@@ -8,7 +32,7 @@ packer {
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "nginx-devportal-r5"
+  ami_name      = local.ami_name
   instance_type = "t2.micro"
   region        = "ap-southeast-2"
   source_ami_filter {
@@ -24,27 +48,27 @@ source "amazon-ebs" "ubuntu" {
 }
 
 build {
-  name = "nginx-devportal-r5"
+  name = local.ami_name
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
 
   provisioner "file" {
-    sources = [".acm-files/nginx-repo.crt", ".acm-files/nginx-repo.key"]
+    sources = [var.nginx_repo_cert_path, var.nginx_repo_key_path]
     destination = "/tmp/"
   }
 
   provisioner "file" {
-    source = ".acm-files/nginx-devportal_1.0.0r5.530315185_focal_amd64.deb"
+    source = var.nginx_devportal_binary_path
     destination = "/tmp/nginx-devportal.deb"
   }
 
   provisioner "file" {
-    source = ".acm-files/nginx-devportal-ui_1.0.0r5.530314375_focal_amd64.deb"
+    source = var.nginx_devportal_ui_binary_path
     destination = "/tmp/nginx-devportal-ui.deb"
   }
 
   provisioner "shell" {
-    script = "bootstrap.sh"
+    script = "${path.root}/bootstrap.sh"
   }
 }

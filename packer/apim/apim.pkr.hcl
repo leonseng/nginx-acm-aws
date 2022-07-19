@@ -1,3 +1,21 @@
+variable "version" {
+  type =  string
+}
+
+variable "nms_acm_binary_path" {
+  type =  string
+  default = ".acm-files/nms-api-connectivity-manager.deb"
+}
+
+variable "nms_instance_manager_binary_path" {
+  type =  string
+  default = ".acm-files/nms-instance-manager.deb"
+}
+
+locals {
+  ami_name = "nginx-apim-${var.version}"
+}
+
 packer {
   required_plugins {
     amazon = {
@@ -8,7 +26,7 @@ packer {
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "nginx-apim-r5"
+  ami_name      = local.ami_name
   instance_type = "t2.micro"
   region        = "ap-southeast-2"
   source_ami_filter {
@@ -24,22 +42,22 @@ source "amazon-ebs" "ubuntu" {
 }
 
 build {
-  name = "nginx-apim-r5"
+  name = local.ami_name
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
 
   provisioner "file" {
-    source = ".acm-files/platform-repo-518059274.tar.gz"
-    destination = "/tmp/platform-repo.tar.gz"
+    source = var.nms_instance_manager_binary_path
+    destination = "/tmp/nms-instance-manager.deb"
   }
 
   provisioner "file" {
-    source = ".acm-files/nms-apim_1.0.0r5-530316232_focal_amd64.deb"
-    destination = "/tmp/nms-apim.deb"
+    source = var.nms_acm_binary_path
+    destination = "/tmp/nms-api-connectivity-manager.deb"
   }
 
   provisioner "shell" {
-    script = "bootstrap.sh"
+    script = "${path.root}/bootstrap.sh"
   }
 }

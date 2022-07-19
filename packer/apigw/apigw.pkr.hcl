@@ -1,3 +1,19 @@
+variable "version" {
+  type =  string
+}
+
+variable "nginx_repo_cert_path" {
+  type =  string
+}
+
+variable "nginx_repo_key_path" {
+  type =  string
+}
+
+locals {
+  ami_name = "nginx-apigw-${var.version}"
+}
+
 packer {
   required_plugins {
     amazon = {
@@ -8,7 +24,7 @@ packer {
 }
 
 source "amazon-ebs" "ubuntu" {
-  ami_name      = "nginx-apigw-r5"
+  ami_name      = local.ami_name
   instance_type = "t2.micro"
   region        = "ap-southeast-2"
   source_ami_filter {
@@ -24,17 +40,17 @@ source "amazon-ebs" "ubuntu" {
 }
 
 build {
-  name = "nginx-apigw-r5"
+  name = local.ami_name
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
 
   provisioner "file" {
-    sources = [".acm-files/nginx-repo.crt", ".acm-files/nginx-repo.key"]
+    sources = [var.nginx_repo_cert_path, var.nginx_repo_key_path]
     destination = "/tmp/"
   }
 
   provisioner "shell" {
-    script = "bootstrap.sh"
+    script = "${path.root}/bootstrap.sh"
   }
 }
