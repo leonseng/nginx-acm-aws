@@ -25,7 +25,7 @@ variable "apim_nms_admin_password" {
   sensitive   = true
 }
 
-variable "apim_nms_nim_lic_b64" {
+variable "apim_nms_lic_b64" {
   description = "Base64 encoded content of NMS-NIM license file"
   type        = string
   sensitive   = true

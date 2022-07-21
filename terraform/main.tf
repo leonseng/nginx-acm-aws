@@ -100,7 +100,7 @@ resource "aws_instance" "apim" {
   key_name               = aws_key_pair.ssh_access.key_name
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.all_sg.id]
-  user_data              = templatefile("./files/apim.sh.tftpl", { nms_admin_password = var.apim_nms_admin_password, nms_nim_lic_b64 = var.apim_nms_nim_lic_b64 })
+  user_data              = templatefile("./files/apim.sh.tftpl", { nms_admin_password = var.apim_nms_admin_password, nms_nim_lic_b64 = var.apim_nms_lic_b64 })
 
   tags = {
     Name  = "${random_id.id.dec}-apim"
