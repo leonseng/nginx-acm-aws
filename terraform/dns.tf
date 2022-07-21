@@ -3,7 +3,7 @@ data "aws_route53_zone" "external" {
   name = "aws.leonseng.com."
 }
 
-resource "aws_route53_record" "apim_ext" {
+resource "aws_route53_record" "apim_public" {
   zone_id = data.aws_route53_zone.external.zone_id
   name    = "apim.acm-internal.${data.aws_route53_zone.external.name}"
   type    = "A"
@@ -11,7 +11,7 @@ resource "aws_route53_record" "apim_ext" {
   records = [aws_instance.apim.public_ip]
 }
 
-resource "aws_route53_record" "apigw_ext" {
+resource "aws_route53_record" "apigw_public" {
   zone_id = data.aws_route53_zone.external.zone_id
   name    = "apigw.acm-internal.${data.aws_route53_zone.external.name}"
   type    = "A"
@@ -20,7 +20,7 @@ resource "aws_route53_record" "apigw_ext" {
 }
 
 
-resource "aws_route53_record" "devportal_ext" {
+resource "aws_route53_record" "devportal_public" {
   zone_id = data.aws_route53_zone.external.zone_id
   name    = "devportal.acm-internal.${data.aws_route53_zone.external.name}"
   type    = "A"
@@ -36,7 +36,7 @@ resource "aws_route53_zone" "internal" {
   }
 }
 
-resource "aws_route53_record" "apim_int" {
+resource "aws_route53_record" "apim_private" {
   zone_id = aws_route53_zone.internal.zone_id
   name    = "apim.acm-internal.${data.aws_route53_zone.external.name}"
   type    = "CNAME"
@@ -44,7 +44,7 @@ resource "aws_route53_record" "apim_int" {
   records = [aws_instance.apim.private_dns]
 }
 
-resource "aws_route53_record" "apigw_int" {
+resource "aws_route53_record" "apigw_private" {
   zone_id = aws_route53_zone.internal.zone_id
   name    = "apigw.acm-internal.${data.aws_route53_zone.external.name}"
   type    = "CNAME"
@@ -53,7 +53,7 @@ resource "aws_route53_record" "apigw_int" {
 }
 
 
-resource "aws_route53_record" "devportal_int" {
+resource "aws_route53_record" "devportal_private" {
   zone_id = aws_route53_zone.internal.zone_id
   name    = "devportal.acm-internal.${data.aws_route53_zone.external.name}"
   type    = "CNAME"
@@ -61,3 +61,10 @@ resource "aws_route53_record" "devportal_int" {
   records = [aws_instance.devportal.private_dns]
 }
 
+resource "aws_route53_record" "devportal_internal_private" {
+  zone_id = aws_route53_zone.internal.zone_id
+  name    = "acm.devportal.acm-internal.${data.aws_route53_zone.external.name}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [aws_instance.devportal.private_dns]
+}

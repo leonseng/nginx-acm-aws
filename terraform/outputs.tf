@@ -11,13 +11,13 @@ output "devportal" {
 }
 
 output "apim_dns" {
-  value = "https://${aws_route53_record.apim_ext.fqdn}"
+  value = "https://${aws_route53_record.apim_public.fqdn}"
 }
 
 output "apigw_dns" {
-  value = aws_route53_record.apigw_ext.fqdn
+  value = aws_route53_record.apigw_public.fqdn
 }
 
 output "devportal_dns" {
-  value = aws_route53_record.devportal_ext.fqdn
+  value = aws_route53_record.devportal_public.fqdn
 }
