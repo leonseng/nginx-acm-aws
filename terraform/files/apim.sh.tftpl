@@ -5,7 +5,7 @@ hostnamectl set-hostname apim
 echo "Update NMS password"
 echo "admin:"$(openssl passwd -6 ${nms_admin_password}) | sudo tee /etc/nms/nginx/.htpasswd
 
-echo "Apply NMS-NIM license"
+echo "Apply license"
 curl -k -X PUT \
   -u admin:${nms_admin_password} \
   -H "Accept: application/json" \
