@@ -58,17 +58,17 @@ resource "aws_security_group" "all_sg" {
   }
 
   ingress {
-    description = "HTTPS"
-    from_port   = 443
-    to_port     = 443
+    description = "internal"
+    from_port   = 81
+    to_port     = 81
     protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.myip.body)}/32", "10.0.0.0/16"]
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
   ingress {
-    description = "Devportal"
-    from_port   = 8443
-    to_port     = 8443
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["${chomp(data.http.myip.body)}/32", "10.0.0.0/16"]
   }
