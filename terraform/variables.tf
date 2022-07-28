@@ -39,21 +39,21 @@ variable "resource_tags" {
 }
 
 variable "nms_admin_password" {
-  description = "Admin password for NMS"
+  description = "Admin password for NMS. If unset, a random password is automatically generated."
   type        = string
   sensitive   = true
   default     = ""
 }
 
 variable "nms_license_b64" {
-  description = "Base64 encoded content of NMS license file. If not set, NMS will not be activated as part of terraform apply."
+  description = "Base64 encoded content of NMS license file. If unset, NMS will not be activated as part of terraform apply."
   type        = string
   sensitive   = true
   default     = ""
 }
 
 variable "route53_zone" {
-  description = "Existing registered Route53 zone used to configure DNS entries for EC2 instances, e.g. 'example.acm.com.' If not set, no DNS entries will be created."
+  description = "Existing registered Route53 zone used to configure DNS entries for EC2 instances, e.g. 'example.acm.com.' If unset, no DNS entries will be created."
   type        = string
   default     = ""
 }

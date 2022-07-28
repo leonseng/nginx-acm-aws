@@ -5,7 +5,7 @@ This directory contains [Terraform](https://www.terraform.io/) files to deploy a
 - two API gateway nodes
 - one devportal node
 
-To secure the deployment, access to the EC2 instances are locked down to the public IP of the machine that executes the `terraform apply` command.
+> To secure the deployment, access to the EC2 instances are locked down to the public IP of the machine that executes the `terraform apply` command.
 
 ## Prerequisites
 
