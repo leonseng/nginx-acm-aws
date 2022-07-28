@@ -2,7 +2,7 @@
 
 This repository contains files to build and deploy an [NGINX API Connectivity Manager (ACM)](https://docs.nginx.com/nginx-management-suite/) environment on AWS.
 
-![](./docs/acm-tf.png)
+![](./docs/images//acm-aws.png)
 
 ## Instructions
 
