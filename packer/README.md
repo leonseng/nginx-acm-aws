@@ -1,14 +1,14 @@
 # Building AMIs
 
-This directory contains Packer files to build AWS Machine Image for the following components in the NGINX ACM demo:
+This directory contains [Packer](https://www.packer.io/) files to build Amazon Machine Images (AMI) for the following components in the NGINX ACM demo:
 1. ACM management
 1. Devportal
 1. API gateway
 
-
 ## Prerequisites
 
-The certificate and key for accessing NGINX repo is required for installing the NGINX ACM components.
+- [Packer](https://www.packer.io/downloads)
+- [NGINX Plus certificate and public key](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-plus/#prerequisites)
 
 ## Instructions
 

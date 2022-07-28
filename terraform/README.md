@@ -1,6 +1,6 @@
 # Deploying NGINX ACM on AWS
 
-This directory contains Terraform files to deploy an NGINX ACM environment on AWS, comprising of the following EC2 instances:
+This directory contains [Terraform](https://www.terraform.io/) files to deploy an NGINX ACM environment on AWS, comprising of the following EC2 instances:
 - an ACM management node
 - two API gateway nodes
 - one devportal node
@@ -9,7 +9,8 @@ To secure the deployment, access to the EC2 instances are locked down to the pub
 
 ## Prerequisites
 
-The AMI images for NGINX ACM management, API gateway and devportal should be built via Packer as detailed [here](../packer/README.md).
+- [Terraform](https://www.terraform.io/downloads)
+- NGINX ACM AMIs, built via Packer as detailed [here](../packer/README.md).
 
 ## Instructions
 
