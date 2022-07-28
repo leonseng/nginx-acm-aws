@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -e
+
+hostnamectl set-hostname acm
+
+NMS_ADMIN_PASSWD=${nms_admin_passwd}
+NMS_LIC_B64=${nms_lic_b64}
+
+echo "Updating NMS password"
+echo "admin:"$(openssl passwd -6 $NMS_ADMIN_PASSWD) | sudo tee /etc/nms/nginx/.htpasswd
+
+if [ -z "$NMS_LIC_B64" ]; then
+    echo "No license provided."
+else
+    echo "Applying license."
+    curl -k -X PUT \
+        -u admin:$NMS_ADMIN_PASSWD \
+        -H "Accept: application/json" \
+        -H "Content-Type: application/json" \
+        -d "{
+            \"desiredState\": {
+                \"content\": \"$NMS_LIC_B64\"
+            },
+            \"metadata\": {
+                \"name\": \"license\"
+            }
+        }" \
+    https://localhost/api/platform/v1/license
+fi

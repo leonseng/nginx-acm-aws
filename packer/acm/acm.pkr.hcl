@@ -2,18 +2,16 @@ variable "version" {
   type =  string
 }
 
-variable "nms_acm_binary_path" {
+variable "nginx_repo_cert_path" {
   type =  string
-  default = ".acm-files/nms-api-connectivity-manager.deb"
 }
 
-variable "nms_instance_manager_binary_path" {
+variable "nginx_repo_key_path" {
   type =  string
-  default = ".acm-files/nms-instance-manager.deb"
 }
 
 locals {
-  ami_name = "nginx-apim-${var.version}"
+  ami_name = "nginx-acm-${var.version}"
 }
 
 packer {
@@ -47,14 +45,9 @@ build {
     "source.amazon-ebs.ubuntu"
   ]
 
-  provisioner "file" {
-    source = var.nms_instance_manager_binary_path
-    destination = "/tmp/nms-instance-manager.deb"
-  }
-
-  provisioner "file" {
-    source = var.nms_acm_binary_path
-    destination = "/tmp/nms-api-connectivity-manager.deb"
+   provisioner "file" {
+    sources = [var.nginx_repo_cert_path, var.nginx_repo_key_path]
+    destination = "/tmp/"
   }
 
   provisioner "shell" {

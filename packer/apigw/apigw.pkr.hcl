@@ -11,7 +11,7 @@ variable "nginx_repo_key_path" {
 }
 
 locals {
-  ami_name = "nginx-apigw-${var.version}"
+  ami_name = "nms-apigw-${var.version}"
 }
 
 packer {

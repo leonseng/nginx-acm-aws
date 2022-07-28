@@ -1,0 +1,3 @@
+version = "1.0.0"
+nginx_repo_cert_path = "/home/user/nginx-repo.crt"
+nginx_repo_key_path = "/home/user/nginx-repo.key"

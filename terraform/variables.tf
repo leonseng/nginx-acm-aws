@@ -4,40 +4,56 @@ variable "region" {
   default     = "ap-southeast-2"
 }
 
-variable "ssh_public_key" {
-  description = "SSH public key to be added onto all EC2 instances"
+variable "acm_ami" {
+  description = "AMI ID for NGINX ACM Management instance"
   type        = string
-}
-
-variable "owner" {
-  description = "Name of owner of created resource"
-  type        = string
-}
-
-variable "apim_ami" {
-  description = "AMI ID for NGINX API Management instance"
-  type        = string
-}
-
-variable "apim_nms_admin_password" {
-  description = "Admin password for NMS"
-  type        = string
-  sensitive   = true
-}
-
-variable "apim_nms_lic_b64" {
-  description = "Base64 encoded content of NMS-NIM license file"
-  type        = string
-  sensitive   = true
 }
 
 variable "apigw_ami" {
-  description = "AMI ID for NGINX API gateway instance"
+  description = "AMI ID for NGINX API gateway instances"
   type        = string
 }
 
+variable "apigw_count" {
+  description = "Number of NGINX API gateway instances to be deployed"
+  type        = number
+  default     = 2
+}
 
 variable "devportal_ami" {
   description = "AMI ID for NGINX Dev Portal instance"
   type        = string
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key to be loaded onto all EC2 instances for SSH access"
+  type        = string
+}
+
+variable "resource_tags" {
+  description = "Additional tags to add to resources created by Terraform"
+  type        = map(any)
+  default = {
+    Project = "nginx-nginx-acm"
+  }
+}
+
+variable "nms_admin_password" {
+  description = "Admin password for NMS"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "nms_license_b64" {
+  description = "Base64 encoded content of NMS license file. If not set, NMS will not be activated as part of terraform apply."
+  type        = string
+  sensitive   = true
+  default     = ""
+}
+
+variable "route53_zone" {
+  description = "Existing registered Route53 zone used to configure DNS entries for EC2 instances, e.g. 'example.acm.com.' If not set, no DNS entries will be created."
+  type        = string
+  default     = ""
 }

@@ -1,14 +1,23 @@
+# Deploying NGINX ACM on AWS
 
-Generate certs
-Use API GW hostname as common name, not APIM hostname!
-```
-openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes
-```
+This directory contains Terraform files to deploy an NGINX ACM environment on AWS, comprising of the following EC2 instances:
+- an ACM management node
+- two API gateway nodes
+- one devportal node
 
-Install agents on APIGW and devportal
-```
-curl -k https://apim.acm-internal.aws.leonseng.com/install/nginx-agent > install.sh && sudo sh install.sh -g data-plane && sudo systemctl start nginx-agent
+To secure the deployment, access to the EC2 instances are locked down to the public IP of the machine that executes the `terraform apply` command.
 
+## Prerequisites
 
-curl -k https://apim.acm-internal.aws.leonseng.com/install/nginx-agent > install.sh && sudo sh install.sh -g dev-portal && sudo systemctl start nginx-agent
-```
+The AMI images for NGINX ACM management, API gateway and devportal should be built via Packer as detailed [here](../packer/README.md).
+
+## Instructions
+
+1. Create `terraform.tfvars` file based on variables defined in [variables.tf](./variables.tf).
+1. Run `terraform apply -auto-approve` to deploy.
+
+Once Terraform has completed the `apply`, run `terraform output -raw acm_url` to get the URL to the NMS web UI. If `nms_admin_password` is not provided, a random password for accessing the NMS web UI is generated instead. It can be retrieved by running `terraform output -raw nms_password`.
+
+## DNS entries for EC2 instances
+
+This Terraform can also automatically create the DNS entries (both public and private) if an existing zone has been registered via AWS Route53. To enable this, simply provide the zone name to the variable `route53_zone`, e.g. `acm-demo.example.com.`. The resulting DNS entries will be available via the `terraform output` command.

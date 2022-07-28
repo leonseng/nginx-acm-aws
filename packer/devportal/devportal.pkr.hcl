@@ -2,14 +2,6 @@ variable "version" {
   type =  string
 }
 
-variable "nginx_devportal_binary_path" {
-  type =  string
-}
-
-variable "nginx_devportal_ui_binary_path" {
-  type =  string
-}
-
 variable "nginx_repo_cert_path" {
   type =  string
 }
@@ -19,7 +11,7 @@ variable "nginx_repo_key_path" {
 }
 
 locals {
-  ami_name = "nginx-devportal-${var.version}"
+  ami_name = "nms-devportal-${var.version}"
 }
 
 packer {
@@ -56,16 +48,6 @@ build {
   provisioner "file" {
     sources = [var.nginx_repo_cert_path, var.nginx_repo_key_path]
     destination = "/tmp/"
-  }
-
-  provisioner "file" {
-    source = var.nginx_devportal_binary_path
-    destination = "/tmp/nginx-devportal.deb"
-  }
-
-  provisioner "file" {
-    source = var.nginx_devportal_ui_binary_path
-    destination = "/tmp/nginx-devportal-ui.deb"
   }
 
   provisioner "shell" {
