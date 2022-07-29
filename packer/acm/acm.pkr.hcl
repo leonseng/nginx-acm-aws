@@ -3,11 +3,16 @@ variable "version" {
 }
 
 variable "nginx_repo_cert_path" {
-  type =  string
+  type = string
 }
 
 variable "nginx_repo_key_path" {
-  type =  string
+  type = string
+}
+
+variable "region" {
+  type = string
+  default = "ap-southeast-2"
 }
 
 locals {
@@ -26,7 +31,7 @@ packer {
 source "amazon-ebs" "ubuntu" {
   ami_name      = local.ami_name
   instance_type = "t2.micro"
-  region        = "ap-southeast-2"
+  region        = var.region
   source_ami_filter {
     filters = {
       name                = "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*"
