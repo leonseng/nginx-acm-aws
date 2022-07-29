@@ -32,7 +32,7 @@ sudo systemctl enable nms
 sudo systemctl enable nms-core
 sudo systemctl enable nms-dpm
 sudo systemctl enable nms-ingestion
-sudo systemctl enable nginx-acm
+sudo systemctl enable nms-acm
 sudo systemctl start nms
-sudo systemctl start nginx-acm
+sudo systemctl start nms-acm
 sudo systemctl restart nginx
