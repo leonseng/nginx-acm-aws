@@ -36,3 +36,13 @@ sudo systemctl enable nms-acm
 sudo systemctl start nms
 sudo systemctl start nms-acm
 sudo systemctl restart nginx
+
+echo "Patch NMS conf to enable API credentials in Devportal"
+sudo sh -c 'cat > /etc/nms/nginx/locations/nms-acm-devportal-creds.conf <<EOF
+location = /api/acm/v1/devportal/credentials {
+        auth_basic off;
+        error_page 401 /401_certs.json;
+        proxy_pass http://acm-api-service/api/acm/v1/devportal/credentials;
+}
+EOF'
+sudo nginx -s reload
