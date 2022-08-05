@@ -109,5 +109,5 @@ output "devportal_dns" {
 }
 
 output "devportal_url" {
-  value = var.route53_zone == "" ? "https://${aws_instance.devportal.public_ip}" : "https://${aws_route53_record.devportal_public[0].fqdn}"
+  value = var.route53_zone == "" ? "http://${aws_instance.devportal.public_ip}" : "http://${aws_route53_record.devportal_public[0].fqdn}"
 }

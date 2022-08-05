@@ -92,6 +92,15 @@ resource "aws_route53_record" "apigw_private" {
   records = [aws_instance.apigw[count.index].private_dns]
 }
 
+resource "aws_route53_record" "apigw_cluster_private" {
+  count   = var.route53_zone == "" ? 0 : 1
+  zone_id = local.int_zone_id
+  name    = "apigw.${local.base_domain}"
+  type    = "A"
+  ttl     = "300"
+  records = aws_instance.apigw[*].private_ip
+}
+
 output "apigw_public_ip" {
   value = aws_instance.apigw[*].public_ip
 }
