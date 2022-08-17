@@ -28,9 +28,10 @@ This directory contains [Packer](https://www.packer.io/) files to build Amazon M
       packer build -var-file=variables.pkrvars.hcl devportal/
       ```
 
-      Each command will output the AMI ID for the corresponding ACM component, as below, which will be used as inputs to the Terraform project for deploying the EC2
+      Each command will output the AMI ID for the corresponding ACM component, as below
       ```
       ==> Builds finished. The artifacts of successful builds are:
       --> nms-apigw-1.0.0.amazon-ebs.ubuntu: AMIs were created:
       ap-southeast-2: ami-04f4ea46fafd660d3
       ```
+1.  Deploy the NGINX ACM environment with Terraform using the instructions [here](../terraform/).
