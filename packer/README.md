@@ -23,9 +23,12 @@ This directory contains [Packer](https://www.packer.io/) files to build Amazon M
       See [variables.pkrvars.hcl.example](./variables.pkrvars.hcl.example) for an example.
 1. Build the images with the following commands
       ```
-      packer build -var-file=variables.pkrvars.hcl acm/
-      packer build -var-file=variables.pkrvars.hcl apigw/
-      packer build -var-file=variables.pkrvars.hcl devportal/
+      packer init acm/ && \
+            packer build -var-file=variables.pkrvars.hcl acm/
+      packer init apigw/ && \
+            packer build -var-file=variables.pkrvars.hcl apigw/
+      packer init devportal/ && \
+            packer build -var-file=variables.pkrvars.hcl devportal/
       ```
 
       Each command will output the AMI ID for the corresponding ACM component, as below
