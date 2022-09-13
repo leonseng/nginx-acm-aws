@@ -16,7 +16,7 @@ variable "region" {
 }
 
 locals {
-  ami_name = "nginx-acm-${var.version}"
+  ami_name = "nms-acm-${var.version}"
 }
 
 packer {
