@@ -29,13 +29,9 @@ sudo apt-get update
 sudo apt-get install -y nms-instance-manager nms-api-connectivity-manager
 
 echo "Enable & start NMS services"
-sudo systemctl enable nms
-sudo systemctl enable nms-core
-sudo systemctl enable nms-dpm
-sudo systemctl enable nms-ingestion
-sudo systemctl enable nms-acm
 sudo systemctl start nms
-sudo systemctl start nms-acm
+sudo systemctl enable nms
+ps aufx | grep nms
 sudo systemctl restart nginx
 
 echo "Patch NMS conf to enable API credentials in Devportal"
