@@ -12,8 +12,9 @@ sudo apt-get install -y apt-transport-https ca-certificates dirmngr
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8919F6BD2B48D754
 echo "deb https://packages.clickhouse.com/deb stable main" | sudo tee /etc/apt/sources.list.d/clickhouse.list
 sudo apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y clickhouse-server=21.3.19.1 clickhouse-common-static=21.3.19.1
-sudo systemctl start clickhouse-server
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y clickhouse-server clickhouse-client
+sudo service clickhouse-server start
+sudo systemctl enable clickhouse-server
 
 echo "Install NGINX OSS"
 sudo apt-get install -y nginx
