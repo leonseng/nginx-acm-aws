@@ -25,10 +25,10 @@ This Terraform can also automatically create the DNS entries (both public and pr
 
 | Record Name | Example | Description |
 | --- | --- | --- |
-| `acm.<zone>` | `acm.acm-demo.example.com  A  100.200.100.10` | Resolves to public IP address of the ACM EC2 instance. When queried within VPC, resolves to private IP of the ACM EC2 instance. |
-| `apigw-<n>.<zone>` | `apigw-0.acm-demo.example.com  A  100.200.100.20`<br />`apigw-1.acm-demo.example.com  A  100.200.100.21` | Individual records (with `n` starting from `0`) that resolves to public IP address of each API gateway EC2 instance. When queried within VPC, resolves to private IP addresses of the API gateway EC2 instance. |
-| `apigw.<zone>` | `apigw.acm-demo.example.com  A  100.200.100.20`<br />`                     100.200.100.21` | Resolves to public IP addresses of all API gateway EC2 instances. This will be the FQDN used by clients to access the APIs. |
-| `devportal.<zone>` | `devportal.acm-demo.example.com  A  100.200.100.30` | Resolves to public IP address of the developer portal EC2 instances. This will be the FQDN used by clients to access the Developer Portal. When queried within VPC, resolves to private IP of the ACM EC2 instance. |
-| `acm.devportal.<zone>` | `acm.devportal.acm-demo.example.com  A  10.0.0.30` | Resolves to private IP address of the developer portal EC2 instances. This will be used by the ACM instance for internal communicaitons to the developer portal instance. |
+| `acm.<zone>` | `acm.acm-demo.example.com` | Resolves to public IP address of the ACM EC2 instance. When queried within VPC, resolves to private IP of the ACM EC2 instance. |
+| `apigw-<n>.<zone>` | `apigw-0.acm-demo.example.com`<br />`apigw-1.acm-demo.example.com` | Individual records (with `n` starting from `0`) that resolves to public IP address of each API gateway EC2 instance. When queried within VPC, resolves to private IP addresses of the API gateway EC2 instance. |
+| `apigw.<zone>` | `apigw.acm-demo.example.com` | Resolves to public IP addresses of all API gateway EC2 instances. This will be the FQDN used by clients to access the APIs. |
+| `devportal.<zone>` | `devportal.acm-demo.example.com` | Resolves to public IP address of the developer portal EC2 instances. This will be the FQDN used by clients to access the Developer Portal. When queried within VPC, resolves to private IP of the ACM EC2 instance. |
+| `acm.devportal.<zone>` | `acm.devportal.acm-demo.example.com` | Resolves to private IP address of the developer portal EC2 instances. This will be used by the ACM instance for internal communicaitons to the developer portal instance. |
 
 The resulting DNS entries will be available via the `terraform output` command.
