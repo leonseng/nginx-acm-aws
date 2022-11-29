@@ -54,3 +54,7 @@ location = /api/acm/v1/devportal/credentials {
 }
 EOF'
 sudo nginx -s reload
+
+echo "Remove NGINX repo cert and key"
+sudo rm /etc/ssl/nginx/nginx-repo.crt
+sudo rm /etc/ssl/nginx/nginx-repo.key

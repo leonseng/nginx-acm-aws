@@ -48,3 +48,7 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE devportal TO nginxdm;
 echo "Start Devportal"
 sudo systemctl enable nginx-devportal
 sudo systemctl start nginx-devportal
+
+echo "Remove NGINX repo cert and key"
+sudo rm /etc/ssl/nginx/nginx-repo.crt
+sudo rm /etc/ssl/nginx/nginx-repo.key
