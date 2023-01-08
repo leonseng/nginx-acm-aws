@@ -38,6 +38,16 @@ variable "resource_tags" {
   }
 }
 
+variable "nginx_repo_cert_path" {
+  description = "Local path to NGINX repo certificate file."
+  type        = string
+}
+
+variable "nginx_repo_key_path" {
+  description = "Local path to NGINX repo certificate file."
+  type        = string
+}
+
 variable "nms_admin_password" {
   description = "Admin password for NMS. If unset, a random password is automatically generated."
   type        = string
