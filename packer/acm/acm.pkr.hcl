@@ -30,7 +30,7 @@ packer {
 
 source "amazon-ebs" "ubuntu" {
   ami_name      = local.ami_name
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   region        = var.region
   source_ami_filter {
     filters = {

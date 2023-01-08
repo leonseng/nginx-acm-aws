@@ -26,21 +26,16 @@ sudo apt-get update
 echo "Install Clickhouse"
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y clickhouse-server clickhouse-client
 
-echo "Start Clickhouse"
-sudo service clickhouse-server start
+echo "Enable Clickhouse to start at boot"
 sudo systemctl enable clickhouse-server
 
 echo "Install NGINX OSS"
 sudo apt-get install -y nginx
 
-echo "Install NIM"
-sudo apt-get install -y nms-instance-manager
-
 echo "Install ACM"
 sudo apt-get install -y nms-api-connectivity-manager
 
-echo "Enable & start NMS services"
-sudo systemctl start nms
+echo "Enable NMS services to start at boot"
 sudo systemctl enable nms
 ps aufx | grep nms
 sudo systemctl restart nginx
