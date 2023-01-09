@@ -1,5 +1,6 @@
 variable "version" {
   type =  string
+  default = ""
 }
 
 variable "nginx_repo_cert_path" {
@@ -16,7 +17,7 @@ variable "region" {
 }
 
 locals {
-  ami_name = "nms-devportal-${var.version}"
+  ami_name = "nms-devportal-${var.version == "" ? formatdate("YYYY-MM-DD-hhmm", timestamp()) : var.version}"
 }
 
 packer {

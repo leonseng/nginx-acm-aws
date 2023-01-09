@@ -16,7 +16,7 @@ This directory contains [Packer](https://www.packer.io/) files to build Amazon M
 1. Create `variables.pkrvars.hcl` in this directory with the following variables
       | Variable | Description |
       | --- | --- |
-      | `version` | Suffix to append to AMI names |
+      | `version` | Suffix to append to AMI names. If not provided, current timestamp is used instead. |
       | `region` | AWS region in which Packer builds and publishes AMIs |
       | `nginx_repo_cert_path` | Full path to certificate for accessing NGINX repo |
       | `nginx_repo_key_path` | Full path to key for accessing NGINX repo |
