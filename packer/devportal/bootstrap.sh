@@ -53,3 +53,4 @@ echo "Remove NGINX repo cert and key"
 sudo rm /etc/ssl/nginx/nginx-repo.crt
 sudo rm /etc/ssl/nginx/nginx-repo.key
 sudo rm /etc/apt/sources.list.d/nginx-plus.list
+sudo rm /etc/apt/sources.list.d/nms.list
