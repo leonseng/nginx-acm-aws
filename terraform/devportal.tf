@@ -58,19 +58,37 @@ resource "aws_instance" "devportal" {
   key_name               = aws_key_pair.ssh_access.key_name
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.devportal.id]
-  user_data              = <<EOF
-#!/usr/bin/env bash
-hostnamectl set-hostname devportal
-EOF
+  user_data = <<-END
+    #cloud-config
+    ${jsonencode({
+  write_files = [
+    {
+      path        = "/etc/ssl/nginx/nginx-repo.crt"
+      permissions = "0644"
+      owner       = "root:root"
+      encoding    = "b64"
+      content     = filebase64("${var.nginx_repo_cert_path}")
+    },
+    {
+      path        = "/etc/ssl/nginx/nginx-repo.key"
+      permissions = "0644"
+      owner       = "root:root"
+      encoding    = "b64"
+      content     = filebase64("${var.nginx_repo_key_path}")
+    },
+  ],
+  hostname = "devportal"
+})}
+END
 
-  tags = {
-    for k, v in merge(
-      {
-        Name = "${random_id.id.dec}-devportal"
-      },
-      var.resource_tags
-    ) : k => v
-  }
+tags = {
+  for k, v in merge(
+    {
+      Name = "${random_id.id.dec}-devportal"
+    },
+    var.resource_tags
+  ) : k => v
+}
 }
 
 resource "aws_route53_record" "devportal_public" {
