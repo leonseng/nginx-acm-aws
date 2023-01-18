@@ -37,7 +37,7 @@ resource "aws_security_group" "acm" {
 
 resource "aws_instance" "acm" {
   ami                    = var.acm_ami
-  instance_type          = "t3.micro"
+  instance_type          = "t3.medium"
   key_name               = aws_key_pair.ssh_access.key_name
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.acm.id]
